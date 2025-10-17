@@ -1,0 +1,6 @@
+circuit_id,region,product,bandwidth_mbps,vendor,model,sla_tier,utilization_pct,latency_ms,jitter_ms,pkt_loss_pct,crc_err_rate,redundancy
+CKT-1001,Dallas,Ethernet,1000,Cisco,NCS5508,Gold,78,8.2,6.1,0.2,150,False
+CKT-1002,Chicago,IPVPN,500,Ciena,5164,Silver,91,15.4,22.8,0.7,260,True
+CKT-1003,Phoenix,Ethernet,200,RAD,ETX203,Bronze,45,9.8,4.1,0.1,90,False
+CKT-1004,Atlanta,Ethernet,1000,Cisco,NCS5508,Gold,88,11.6,19.2,0.5,400,True
+CKT-1005,Dallas,IPVPN,300,Ciena,5142,Silver,33,6.9,3.5,0.05,60,False
