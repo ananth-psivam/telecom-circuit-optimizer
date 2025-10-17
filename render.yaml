@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: telecom-circuit-optimizer
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app/main.py --server.headless true --server.port $PORT --server.address 0.0.0.0
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_KEY
+        sync: false
+      - key: CLAUDE_API_KEY
+        sync: false
+      - key: CLAUDE_MODEL
+        value: claude-3-sonnet-20240229
+      - key: PERPLEXITY_API_KEY
+        sync: false
+      - key: PERPLEXITY_MODEL
+        value: sonar
