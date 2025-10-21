@@ -1,16 +1,27 @@
-# ---- robust import setup (works on Streamlit Cloud & local) ----
+# --- robust import setup (works on Streamlit Cloud & local) ---
 import os, sys
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))     # .../app
 if CURRENT_DIR not in sys.path:
     sys.path.insert(0, CURRENT_DIR)
 # ---------------------------------------------------------------
 
-# NOTE: import modules directly from the same folder (no "app." prefix)
+# Safe import for dotenv (provides load_dotenv(); no-op fallback if missing)
+try:
+    from dotenv import load_dotenv
+except Exception:
+    def load_dotenv(*args, **kwargs):
+        return None
+
+import streamlit as st
+import pandas as pd
+
+# Import local modules directly (no "app." prefix)
 from data_access import get_circuits, get_kpis, save_recommendation
 from scoring import compute_risk_score
 from ai_claude import generate_recommendation
 from enrich_perplexity import get_context_hint
 
+# Load env vars (only matters if you set Secrets/.env)
 load_dotenv()
 
 st.set_page_config(page_title="Telecom Circuit Optimizer", page_icon="📡", layout="wide")
