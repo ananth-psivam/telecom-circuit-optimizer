@@ -1,12 +1,15 @@
-import os
-import streamlit as st
-import pandas as pd
-from dotenv import load_dotenv
+# ---- robust import setup (works on Streamlit Cloud & local) ----
+import os, sys
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))     # .../app
+if CURRENT_DIR not in sys.path:
+    sys.path.insert(0, CURRENT_DIR)
+# ---------------------------------------------------------------
 
-from app.data_access import get_circuits, get_kpis, save_recommendation
-from app.scoring import compute_risk_score
-from app.ai_claude import generate_recommendation
-from app.enrich_perplexity import get_context_hint
+# NOTE: import modules directly from the same folder (no "app." prefix)
+from data_access import get_circuits, get_kpis, save_recommendation
+from scoring import compute_risk_score
+from ai_claude import generate_recommendation
+from enrich_perplexity import get_context_hint
 
 load_dotenv()
 
