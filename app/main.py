@@ -45,6 +45,14 @@ if df.empty:
     st.warning("No circuit data found. Populate Supabase tables or place sample CSVs under ./data")
     st.stop()
 
+with st.expander("🔧 Diagnostics (Claude key visibility)"):
+    import os as _os
+    import streamlit as _st
+    st.write("os.getenv('CLAUDE_API_KEY') present:", bool(_os.getenv("CLAUDE_API_KEY")))
+    st.write("'CLAUDE_API_KEY' in st.secrets:", "CLAUDE_API_KEY" in _st.secrets)
+    st.write("CLAUDE_MODEL:", _st.secrets.get("CLAUDE_MODEL", "(missing)"))
+
+
 # ----------------------- Filters -----------------------
 left, mid, right = st.columns(3)
 region = left.selectbox("Region", ["All"] + sorted(df["region"].dropna().unique().tolist()))
@@ -108,3 +116,15 @@ else:
         hint = get_context_hint(sel.get("vendor"), sel.get("model"), sel.get("bandwidth_mbps"), sel.get("region"))
         if hint:
             st.info(f"Context hint: {hint}")
+
+if st.button("Generate AI Recommendation"):
+    reco = generate_recommendation(sel)
+    if reco.get("actions") or reco.get("reasons"):
+        st.success("✅ Recommendation ready")
+        st.write(f"**Summary:** {reco.get('summary')}")
+        ...
+    else:
+        st.error("Claude did not return a recommendation.")
+        with st.expander("Show diagnostic details"):
+            st.code(reco.get("raw_text", "No details"), language="json")
+
