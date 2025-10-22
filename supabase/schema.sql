@@ -1,44 +1,36 @@
-create table if not exists circuits (
-  id uuid primary key default gen_random_uuid(),
-  circuit_id text unique not null,
-  region text not null,
-  product text not null,
-  site_a text,
-  site_b text,
-  bandwidth_mbps int not null,
-  vendor text,
-  model text,
-  sla_tier text,
-  utilization_pct numeric,
-  latency_ms numeric,
-  jitter_ms numeric,
-  pkt_loss_pct numeric,
-  crc_err_rate numeric,
-  redundancy boolean default false,
-  created_at timestamptz default now()
+-- Supabase schema for telecom-circuit-optimizer
+CREATE TABLE IF NOT EXISTS circuits (
+    circuit_id TEXT PRIMARY KEY,
+    region TEXT,
+    product TEXT,
+    bandwidth_mbps INTEGER,
+    vendor TEXT,
+    model TEXT,
+    sla_tier TEXT,
+    utilization_pct FLOAT,
+    jitter_ms FLOAT,
+    pkt_loss_pct FLOAT,
+    latency_ms FLOAT,
+    crc_err_rate FLOAT,
+    redundancy BOOLEAN
 );
 
-create table if not exists kpis (
-  id uuid primary key default gen_random_uuid(),
-  circuit_id text references circuits(circuit_id) on delete cascade,
-  ts timestamptz not null,
-  utilization_pct numeric,
-  latency_ms numeric,
-  jitter_ms numeric,
-  pkt_loss_pct numeric,
-  crc_err_rate numeric,
-  alarms int,
-  unique (circuit_id, ts)
+CREATE TABLE IF NOT EXISTS kpis (
+    circuit_id TEXT,
+    ts TIMESTAMP,
+    utilization_pct FLOAT,
+    jitter_ms FLOAT,
+    pkt_loss_pct FLOAT,
+    latency_ms FLOAT,
+    crc_err_rate FLOAT
 );
 
-create table if not exists recommendations (
-  id uuid primary key default gen_random_uuid(),
-  circuit_id text references circuits(circuit_id) on delete cascade,
-  risk_score numeric,
-  risk_factors jsonb,
-  summary text,
-  actions text,
-  confidence text,
-  created_at timestamptz default now()
+CREATE TABLE IF NOT EXISTS recommendations (
+    id SERIAL PRIMARY KEY,
+    circuit_id TEXT,
+    summary TEXT,
+    actions TEXT,
+    confidence TEXT,
+    risk_score FLOAT,
+    created_at TIMESTAMP DEFAULT now()
 );
--- use prior schema.sql from earlier bundle
