@@ -46,6 +46,16 @@ except Exception:
 load_dotenv()
 
 st.set_page_config(page_title="Telecom Circuit Optimizer", page_icon="📡", layout="wide")
+
+# --- make sure OPENAI_API_KEY is available everywhere ---
+try:
+    if "OPENAI_API_KEY" in st.secrets and not os.getenv("OPENAI_API_KEY"):
+        os.environ["OPENAI_API_KEY"] = str(st.secrets["OPENAI_API_KEY"])
+    if "OPENAI_MODEL" in st.secrets and not os.getenv("OPENAI_MODEL"):
+        os.environ["OPENAI_MODEL"] = str(st.secrets["OPENAI_MODEL"])
+except Exception:
+    pass
+
 st.title("📡 Telecom Circuit Optimization & Predictive Restoration")
 st.caption("Portfolio insights • predictive flags • AI recommendations (OpenAI)")
 
