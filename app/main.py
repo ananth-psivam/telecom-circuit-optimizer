@@ -18,6 +18,7 @@ import numpy as np
 # --- Local modules (no "app." prefix) ---
 from data_access import get_circuits, get_kpis, save_recommendation
 from scoring import compute_risk_score
+# OpenAI-based recommender
 from ai_openai import generate_recommendation
 
 # Optional helpers — import safely if available
@@ -41,13 +42,12 @@ except Exception:
                f"**Summary:** {reco.get('summary','')}\n\n" \
                f"**Actions:**\n" + "\n".join(f"- {a}" for a in (reco.get('actions') or []))
 
-
 # Load env vars
 load_dotenv()
 
 st.set_page_config(page_title="Telecom Circuit Optimizer", page_icon="📡", layout="wide")
 st.title("📡 Telecom Circuit Optimization & Predictive Restoration")
-st.caption("Portfolio insights • predictive flags • AI recommendations (Claude)")
+st.caption("Portfolio insights • predictive flags • AI recommendations (OpenAI)")
 
 # ----------------------- Load data -----------------------
 @st.cache_data
@@ -240,7 +240,7 @@ with tab_objs[0]:
                             risk_score=row.get("Risk Score"),
                         )
                     else:
-                        st.error("Claude did not return a recommendation.")
+                        st.error("AI did not return a recommendation.")
                         with st.expander("Show diagnostic details"):
                             st.code(reco.get("raw_text","No details"), language="json")
     else:
@@ -293,7 +293,7 @@ with tab_objs[1]:
                                 risk_score=row.get("Risk Score"),
                             )
                         else:
-                            st.error("Claude did not return a recommendation.")
+                            st.error("AI did not return a recommendation.")
                             with st.expander("Show diagnostic details"):
                                 st.code(reco.get("raw_text","No details"), language="json")
         else:
@@ -346,7 +346,7 @@ with tab_objs[2]:
                     if hint:
                         st.info(f"Context hint: {hint}")
                 else:
-                    st.error("Claude did not return a recommendation.")
+                    st.error("AI did not return a recommendation.")
                     with st.expander("Show diagnostic details"):
                         st.code(reco.get("raw_text","No details"), language="json")
 
