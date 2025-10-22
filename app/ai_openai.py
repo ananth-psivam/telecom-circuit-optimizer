@@ -1,0 +1,206 @@
+# app/ai_openai.py
+import os, json, requests
+from typing import Dict, Any
+
+OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
+DEFAULT_MODEL = "gpt-4o-mini"  # good balance of quality/cost
+
+# ---------- key + helpers ----------
+def _get_secret(name: str, default: str = "") -> str:
+    val = (os.getenv(name) or "").strip()
+    if val:
+        return val
+    try:
+        import streamlit as st
+        v = st.secrets.get(name, default)
+        return (v or "").strip()
+    except Exception:
+        return default
+
+def _safe_json_parse(text: str):
+    try:
+        return json.loads(text)
+    except Exception:
+        if "{" in text and "}" in text:
+            try:
+                chunk = text[text.find("{"): text.rfind("}") + 1]
+                return json.loads(chunk)
+            except Exception:
+                pass
+        return None
+
+def _fallback_extract_lists(text: str):
+    reasons, actions = [], []
+    lines = [l.strip() for l in text.splitlines() if l.strip()]
+    current = None
+    for ln in lines:
+        low = ln.lower()
+        if "reason" in low:
+            current = "reasons"; continue
+        if "action" in low or "recommend" in low:
+            current = "actions"; continue
+        if ln.startswith(("-", "*", "•")):
+            (reasons if current == "reasons" else actions).append(ln.lstrip("-*• ").strip())
+    summary = lines[0] if lines else "Model returned non-JSON text."
+    return (summary[:200], reasons[:3], actions[:3])
+
+def local_fallback_reco(c):
+    # Simple rule-based plan if API is unavailable / no credits
+    def f(x): 
+        try: return float(x or 0)
+        except: return 0.0
+    util, jitter, loss, lat, crc, bw = map(f, [
+        c.get("utilization_pct"), c.get("jitter_ms"), c.get("pkt_loss_pct"),
+        c.get("latency_ms"), c.get("crc_err_rate"), c.get("bandwidth_mbps")
+    ])
+    reasons, actions = [], []
+    if util > 80: 
+        reasons.append(f"High utilization {util:.0f}%")
+        actions.append("QoS/traffic shaping now; plan capacity aug")
+    if jitter > 15:
+        reasons.append(f"Elevated jitter {jitter:.1f} ms")
+        actions.append("Check queuing/LLQ; inspect buffer drops on PE")
+    if loss > 0.5:
+        reasons.append(f"Packet loss {loss:.2f}%")
+        actions.append("Check optics/interfaces; test alternate path")
+    if lat > 60:
+        reasons.append(f"High latency {lat:.0f} ms")
+        actions.append("Reroute to lower RTT; verify MPLS TE")
+    if crc > 100:
+        reasons.append(f"CRC errors {crc:.0f}")
+        actions.append("Replace SFP/patch; clean fiber; loopback test")
+    if bw >= 500 and util < 30:
+        reasons.append("Under-utilized high-bandwidth circuit")
+        actions.append("Right-size or consolidate redundant links")
+    if not reasons:
+        reasons = ["No clear impairment from KPIs"]
+        actions = ["Continue monitoring; add tighter 24h alerts"]
+    return {
+        "summary": f"Heuristic plan for {c.get('circuit_id','circuit')}",
+        "reasons": reasons[:3],
+        "actions": actions[:3],
+        "confidence": "low",
+        "raw_text": "local_fallback"
+    }
+
+# ---------- main entry ----------
+def generate_recommendation(circuit: Dict[str, Any], max_tokens: int = 300) -> Dict[str, Any]:
+    api_key = _get_secret("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")
+    model = _get_secret("OPENAI_MODEL", DEFAULT_MODEL)
+
+    if not api_key:
+        return {
+            "summary": "OpenAI API key not configured.",
+            "reasons": [],
+            "actions": [],
+            "confidence": "low",
+            "raw_text": "Set OPENAI_API_KEY in Streamlit Secrets or env.",
+        }
+
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
+
+    context = {
+        "circuit_id": circuit.get("circuit_id"),
+        "region": circuit.get("region"),
+        "product": circuit.get("product"),
+        "bandwidth_mbps": circuit.get("bandwidth_mbps"),
+        "vendor": circuit.get("vendor"),
+        "model": circuit.get("model"),
+        "sla_tier": circuit.get("sla_tier"),
+        "latest_kpis": {
+            "utilization_pct": circuit.get("utilization_pct"),
+            "latency_ms": circuit.get("latency_ms"),
+            "jitter_ms": circuit.get("jitter_ms"),
+            "pkt_loss_pct": circuit.get("pkt_loss_pct"),
+            "crc_err_rate": circuit.get("crc_err_rate"),
+        },
+        "risk_score": circuit.get("Risk Score"),
+    }
+
+    json_instruction = (
+        "Respond with ONLY valid JSON (no backticks) exactly like:\n"
+        '{ "summary": "...", "reasons": ["...","...","..."], '
+        '"actions": ["...","...","..."], "confidence": "low|medium|high" }'
+    )
+
+    user_prompt = (
+        "Analyze the circuit context and KPI values below and return an executive-ready recommendation.\n\n"
+        f"Context (JSON): {json.dumps(context, ensure_ascii=False)}\n\n"
+        f"{json_instruction}\n"
+        "Keep under 120 words. If data is missing, say which fields are missing in the summary."
+    )
+
+    payload = {
+        "model": model,
+        "max_tokens": max_tokens,
+        "temperature": 0.2,
+        "messages": [
+            {"role": "system", "content": "You are a senior telecom network reliability engineer. Be concise, precise, and actionable."},
+            {"role": "user", "content": user_prompt},
+        ],
+    }
+
+    try:
+        r = requests.post(OPENAI_API_URL, headers=headers, json=payload, timeout=60)
+        if r.status_code != 200:
+            txt = r.text
+            # Graceful fallbacks for common errors
+            if r.status_code in (401, 403):
+                return {
+                    "summary": "OpenAI authentication/permission error.",
+                    "reasons": [],
+                    "actions": [],
+                    "confidence": "low",
+                    "raw_text": f"HTTP {r.status_code}: {txt}",
+                }
+            if r.status_code in (429, 400) and ("quota" in txt.lower() or "rate" in txt.lower()):
+                lf = local_fallback_reco(circuit)
+                lf["summary"] = "OpenAI quota/rate limit — showing heuristic plan."
+                return lf
+            return {
+                "summary": "OpenAI API error",
+                "reasons": [],
+                "actions": [],
+                "confidence": "low",
+                "raw_text": f"HTTP {r.status_code}: {txt}",
+            }
+
+        data = r.json()
+        text = (data.get("choices") or [{}])[0].get("message", {}).get("content", "")
+        if not text:
+            return {
+                "summary": "Empty response from OpenAI.",
+                "reasons": [],
+                "actions": [],
+                "confidence": "low",
+                "raw_text": json.dumps(data),
+            }
+
+        parsed = _safe_json_parse(text)
+        if parsed:
+            return {
+                "summary": parsed.get("summary", ""),
+                "reasons": (parsed.get("reasons") or [])[:3],
+                "actions": (parsed.get("actions") or [])[:3],
+                "confidence": parsed.get("confidence", "medium"),
+                "raw_text": text,
+            }
+
+        # Heuristic extraction if model didn't return strict JSON
+        summary, reasons, actions = _fallback_extract_lists(text)
+        return {
+            "summary": summary,
+            "reasons": reasons,
+            "actions": actions,
+            "confidence": "medium" if (reasons or actions) else "low",
+            "raw_text": text,
+        }
+
+    except Exception as e:
+        # Final fallback
+        lf = local_fallback_reco(circuit)
+        lf["summary"] = f"Local heuristic (exception: {e})"
+        return lf
