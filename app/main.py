@@ -55,9 +55,12 @@ with st.expander("🔧 Diagnostics (Claude key visibility)"):
 
 # ----------------------- Filters -----------------------
 left, mid, right = st.columns(3)
-region = left.selectbox("Region", ["All"] + sorted(df["region"].dropna().unique().tolist()))
-sla = mid.selectbox("SLA Tier", ["All"] + sorted(df["sla_tier"].dropna().unique().tolist()))
-threshold = right.slider("Minimum Risk Score", 0, 100, 60)
+region = left.selectbox("Region", ["All"] + sorted(df["region"].dropna().unique().tolist()),
+                        key="filter_region")
+sla = mid.selectbox("SLA Tier", ["All"] + sorted(df["sla_tier"].dropna().unique().tolist()),
+                    key="filter_sla")
+threshold = right.slider("Minimum Risk Score", 0, 100, 60, key="risk_threshold")
+
 
 filtered = df.copy()
 if region != "All":
@@ -69,6 +72,14 @@ filtered = filtered[filtered["Risk Score"] >= threshold]
 st.subheader(f"Circuits meeting criteria: {len(filtered)}")
 st.dataframe(filtered[["circuit_id","region","product","bandwidth_mbps","utilization_pct","jitter_ms","pkt_loss_pct","Risk Score"]], use_container_width=True)
 
+# Circuit chooser
+selected_id = st.selectbox("Choose a circuit", filtered["circuit_id"].tolist(),
+                           key="circuit_selector")
+
+# Button — give it a unique key
+if st.button("Generate AI Recommendation", key="btn_gen_reco"):
+    reco = generate_recommendation(sel)
+    ...
 # ----------------------- Detail / AI panel -----------------------
 st.markdown("---")
 st.header("🤖 AI-Powered Recommendation")
