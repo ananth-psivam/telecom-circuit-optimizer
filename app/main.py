@@ -15,17 +15,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-# Local modules (no "app." prefix)
-from data_access import (
-    get_circuits, get_kpis, save_recommendation,
-    # the next two are optional; we guard usage below
-    # they exist only in the "Plus" bundle
-    bulk_upsert as _bulk_upsert_optional if 'bulk_upsert' in dir() else None,  # type: ignore
-)
+# --- Local modules (no "app." prefix) ---
+from data_access import get_circuits, get_kpis, save_recommendation
 from scoring import compute_risk_score
 from ai_claude import generate_recommendation
 
-# Optional helpers (won't crash if missing)
+# Optional helpers — import safely if available
 try:
     from enrich_perplexity import get_context_hint
 except Exception:
@@ -42,10 +37,10 @@ try:
     from ticket_helper import build_servicenow_markdown
 except Exception:
     def build_servicenow_markdown(row, reco):
-        # minimal fallback
         return f"# Ticket Draft for {row.get('circuit_id','(unknown)')}\n\n" \
                f"**Summary:** {reco.get('summary','')}\n\n" \
                f"**Actions:**\n" + "\n".join(f"- {a}" for a in (reco.get('actions') or []))
+
 
 # Load env vars
 load_dotenv()
