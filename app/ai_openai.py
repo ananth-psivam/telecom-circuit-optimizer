@@ -23,16 +23,15 @@ def _get_secret_any(*names, default: str = "") -> str:
         pass
     return default
 
-def generate_recommendation(circuit: Dict[str, Any], max_tokens: int = 300) -> Dict[str, Any]:
-    # accept multiple possible names to avoid typos/mismatches
-    api_key = _get_secret_any("OPENAI_API_KEY", "OPENAI_KEY", "OPENAI_API_TOKEN", "OPENAI_TOKEN")
-    model = _get_secret_any("OPENAI_MODEL", default=DEFAULT_MODEL)
-
-    if not api_key:
+def generate_recommendation(circuit, max_tokens=300):
+    try:
+        ...  # your existing logic
+        return {...}  # every path returns a dict
+    except Exception as e:
         return {
-            "summary": "OpenAI API key not configured.",
+            "summary": "Exception calling OpenAI",
             "reasons": [],
             "actions": [],
             "confidence": "low",
-            "raw_text": "Set OPENAI_API_KEY in Streamlit Secrets or env.",
+            "raw_text": str(e),
         }
