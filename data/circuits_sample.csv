@@ -1,0 +1,201 @@
+circuit_id,region,product,bandwidth_mbps,vendor,model,sla_tier,utilization_pct,jitter_ms,pkt_loss_pct,latency_ms,crc_err_rate,redundancy
+CIR-1000,South,IP/MPLS,1000,Cisco,ASR 920,Bronze,62.27,1.7,1.542,27.29,0.725,True
+CIR-1001,North,IP/MPLS,500,Cisco,NCS 5508,Gold,87.51,1.02,1.417,88.95,0.016,True
+CIR-1002,Central,IP/MPLS,1000,Juniper,ASR 920,Silver,21.82,9.71,0.947,46.99,0.341,True
+CIR-1003,North,FiberLink,1000,Ciena,ASR 920,Gold,18.57,1.05,0.116,36.43,0.819,False
+CIR-1004,North,FiberLink,500,Ciena,ETX-203,Gold,31.76,1.93,0.149,47.63,0.603,False
+CIR-1005,West,Broadband,500,Juniper,ASR 920,Gold,71.72,3.83,1.705,68.59,0.337,True
+CIR-1006,Central,Broadband,500,RAD,5164,Gold,60.4,8.27,1.98,18.85,0.906,True
+CIR-1007,Central,Ethernet,100,Ciena,ETX-203,Silver,18.69,9.66,1.352,47.7,0.773,True
+CIR-1008,Central,Ethernet,2000,Cisco,ASR 920,Gold,88.09,8.11,0.892,60.85,0.265,False
+CIR-1009,North,Broadband,100,Cisco,7750 SR,Silver,77.16,7.22,1.295,95.12,0.645,True
+CIR-1010,South,FiberLink,100,Nokia,5164,Silver,11.96,5.69,1.189,28.99,0.596,False
+CIR-1011,Central,IP/MPLS,1000,Ciena,5164,Bronze,65.37,1.78,0.767,39.13,0.401,True
+CIR-1012,North,Broadband,500,RAD,5164,Silver,75.56,9.62,0.131,41.04,0.367,True
+CIR-1013,West,Ethernet,2000,Juniper,ETX-203,Bronze,41.83,7.83,1.643,62.53,0.344,True
+CIR-1014,South,FiberLink,1000,Juniper,ASR 920,Silver,15.86,6.75,0.744,38.89,0.617,True
+CIR-1015,West,Broadband,100,RAD,ASR 920,Silver,16.57,7.83,1.638,55.68,0.442,True
+CIR-1016,South,Broadband,500,Nokia,7750 SR,Silver,18.86,7.52,0.505,79.27,0.832,True
+CIR-1017,North,FiberLink,1000,Juniper,7750 SR,Bronze,81.44,6.74,0.002,72.01,0.67,False
+CIR-1018,East,Broadband,500,Ciena,5164,Bronze,87.41,9.83,0.318,47.41,0.07,True
+CIR-1019,South,FiberLink,1000,Nokia,7750 SR,Gold,20.44,9.13,0.937,87.1,0.64,False
+CIR-1020,West,IP/MPLS,500,Ciena,ETX-203,Bronze,30.05,6.82,1.889,58.02,0.271,True
+CIR-1021,North,FiberLink,100,Cisco,ASR 920,Bronze,24.07,7.24,0.204,56.29,0.593,True
+CIR-1022,South,FiberLink,2000,Nokia,5164,Bronze,25.84,1.46,1.708,8.25,0.68,False
+CIR-1023,East,FiberLink,100,Juniper,7750 SR,Bronze,81.19,7.03,1.054,98.74,0.231,True
+CIR-1024,East,Broadband,2000,Nokia,ETX-203,Gold,38.23,1.4,1.652,16.68,0.457,False
+CIR-1025,Central,Broadband,500,Nokia,ETX-203,Bronze,36.47,6.29,0.597,26.96,0.19,False
+CIR-1026,Central,FiberLink,1000,Nokia,7750 SR,Silver,29.33,9.99,1.68,9.91,0.052,True
+CIR-1027,West,Broadband,100,Nokia,ASR 920,Silver,61.67,6.0,1.546,65.8,0.378,False
+CIR-1028,South,Ethernet,2000,Ciena,7750 SR,Bronze,42.24,5.26,0.46,26.35,0.363,False
+CIR-1029,South,Ethernet,100,Cisco,5164,Bronze,73.26,3.82,0.263,22.1,0.995,True
+CIR-1030,Central,Broadband,2000,RAD,7750 SR,Silver,27.47,2.08,1.736,13.41,0.446,False
+CIR-1031,South,Broadband,100,Nokia,ETX-203,Silver,76.96,7.58,1.926,14.81,0.334,True
+CIR-1032,South,FiberLink,2000,Juniper,7750 SR,Gold,61.32,2.73,0.063,60.54,0.58,True
+CIR-1033,East,IP/MPLS,2000,Nokia,ASR 920,Silver,19.71,2.04,1.463,70.38,0.089,True
+CIR-1034,Central,Broadband,500,Juniper,NCS 5508,Silver,45.23,4.8,1.819,42.75,0.962,True
+CIR-1035,North,Ethernet,2000,Ciena,7750 SR,Bronze,83.4,8.16,1.715,50.59,0.635,False
+CIR-1036,Central,FiberLink,500,Juniper,ASR 920,Silver,88.45,7.71,1.929,70.17,0.755,True
+CIR-1037,North,Broadband,2000,RAD,ASR 920,Gold,49.58,1.49,1.52,6.65,0.17,True
+CIR-1038,East,Ethernet,1000,Cisco,ETX-203,Silver,50.87,5.1,0.885,35.7,0.409,False
+CIR-1039,West,Ethernet,1000,Juniper,ASR 920,Bronze,88.07,5.7,0.624,97.44,0.423,True
+CIR-1040,South,IP/MPLS,1000,Juniper,ASR 920,Bronze,59.9,6.8,0.641,60.11,0.822,True
+CIR-1041,East,FiberLink,2000,Cisco,ASR 920,Silver,12.79,6.85,1.449,29.15,0.001,False
+CIR-1042,South,FiberLink,500,RAD,ASR 920,Bronze,87.58,4.28,1.492,54.56,0.301,False
+CIR-1043,West,IP/MPLS,500,Nokia,5164,Gold,31.1,6.05,0.401,37.55,0.981,False
+CIR-1044,West,IP/MPLS,2000,Juniper,5164,Gold,59.1,5.33,1.736,55.56,0.475,False
+CIR-1045,East,FiberLink,1000,Cisco,ETX-203,Silver,24.07,8.96,1.43,16.95,0.383,False
+CIR-1046,West,FiberLink,1000,Ciena,7750 SR,Silver,12.88,5.77,1.126,17.61,0.12,False
+CIR-1047,North,Broadband,500,Cisco,ASR 920,Silver,36.48,4.97,0.943,18.64,0.974,False
+CIR-1048,West,Broadband,1000,Ciena,7750 SR,Bronze,76.34,4.64,1.086,94.28,0.02,True
+CIR-1049,South,IP/MPLS,100,RAD,7750 SR,Gold,33.59,6.15,0.318,74.63,0.737,False
+CIR-1050,South,Broadband,500,Nokia,ETX-203,Gold,28.71,8.24,0.407,20.43,0.769,False
+CIR-1051,South,Ethernet,1000,Cisco,ASR 920,Bronze,28.08,5.85,0.182,22.89,0.244,False
+CIR-1052,South,Broadband,500,Juniper,ASR 920,Gold,53.79,6.95,0.307,74.43,0.672,True
+CIR-1053,North,Broadband,100,RAD,NCS 5508,Silver,92.92,7.64,0.907,19.84,0.093,True
+CIR-1054,Central,Ethernet,500,Cisco,7750 SR,Silver,49.01,5.68,1.061,27.28,0.257,False
+CIR-1055,East,IP/MPLS,500,Juniper,7750 SR,Silver,57.37,4.84,0.036,96.52,0.788,False
+CIR-1056,South,Ethernet,500,Cisco,5164,Gold,83.15,8.89,1.594,29.25,0.865,False
+CIR-1057,West,Broadband,500,Ciena,NCS 5508,Silver,55.48,4.76,0.588,67.86,0.608,True
+CIR-1058,South,IP/MPLS,100,Cisco,5164,Bronze,25.68,5.16,1.824,97.97,0.507,True
+CIR-1059,West,Broadband,2000,Cisco,5164,Bronze,35.47,9.91,1.935,40.56,0.159,False
+CIR-1060,West,Ethernet,500,Cisco,5164,Gold,36.34,1.0,0.371,6.66,0.063,True
+CIR-1061,South,Ethernet,500,RAD,ETX-203,Bronze,43.77,2.67,0.924,28.19,0.118,False
+CIR-1062,North,Broadband,1000,Cisco,ETX-203,Bronze,46.28,4.46,0.002,83.93,0.227,True
+CIR-1063,West,FiberLink,500,Juniper,5164,Gold,77.98,9.39,1.197,87.14,0.342,True
+CIR-1064,West,FiberLink,1000,Ciena,NCS 5508,Silver,39.7,1.63,1.215,78.01,0.381,False
+CIR-1065,South,Ethernet,2000,Ciena,7750 SR,Silver,49.8,1.09,0.495,15.75,0.346,False
+CIR-1066,West,Ethernet,100,Cisco,NCS 5508,Silver,63.12,1.47,1.117,80.57,0.239,False
+CIR-1067,West,FiberLink,100,RAD,ASR 920,Gold,42.11,1.8,0.451,92.27,0.51,False
+CIR-1068,South,FiberLink,2000,RAD,ETX-203,Bronze,81.11,1.34,0.322,62.06,0.825,True
+CIR-1069,South,Broadband,100,Juniper,7750 SR,Silver,59.93,5.32,1.303,94.38,0.28,True
+CIR-1070,East,Broadband,2000,Cisco,7750 SR,Silver,34.99,6.23,0.652,83.55,0.942,True
+CIR-1071,North,FiberLink,2000,Ciena,ASR 920,Gold,70.7,3.45,1.181,68.36,0.873,False
+CIR-1072,North,Broadband,2000,RAD,ASR 920,Silver,54.85,4.58,0.866,59.83,0.162,True
+CIR-1073,West,Broadband,100,Cisco,5164,Gold,55.43,1.83,1.969,38.11,0.786,False
+CIR-1074,North,IP/MPLS,1000,RAD,ETX-203,Bronze,50.89,4.03,0.299,20.13,0.575,True
+CIR-1075,West,Broadband,2000,RAD,ETX-203,Gold,52.25,5.7,0.929,62.47,0.567,False
+CIR-1076,East,Ethernet,500,Ciena,NCS 5508,Gold,75.06,7.59,1.361,35.22,0.391,False
+CIR-1077,South,Broadband,100,Nokia,5164,Gold,18.75,1.03,0.791,87.31,0.501,True
+CIR-1078,South,Broadband,2000,Juniper,5164,Gold,38.42,5.21,1.949,99.37,0.397,False
+CIR-1079,South,FiberLink,2000,Juniper,5164,Bronze,16.42,3.67,1.444,76.48,0.54,False
+CIR-1080,North,Ethernet,500,Ciena,5164,Bronze,74.03,8.68,1.314,13.6,0.628,True
+CIR-1081,East,Broadband,1000,RAD,ETX-203,Silver,33.15,7.44,1.514,32.43,0.674,False
+CIR-1082,North,Broadband,1000,Cisco,ETX-203,Bronze,86.28,6.3,1.905,15.37,0.532,False
+CIR-1083,North,IP/MPLS,1000,RAD,5164,Bronze,54.76,3.5,1.816,66.8,0.721,False
+CIR-1084,East,Broadband,2000,Ciena,NCS 5508,Silver,78.06,9.19,1.449,77.69,0.141,True
+CIR-1085,East,Broadband,2000,Juniper,7750 SR,Bronze,93.21,1.41,1.498,92.94,0.212,True
+CIR-1086,East,IP/MPLS,2000,RAD,7750 SR,Gold,81.38,1.99,0.292,46.63,0.819,False
+CIR-1087,East,FiberLink,100,Juniper,NCS 5508,Gold,83.69,4.52,0.206,90.63,0.323,True
+CIR-1088,South,Broadband,500,Cisco,5164,Silver,44.68,2.12,1.142,88.4,0.023,False
+CIR-1089,Central,IP/MPLS,2000,Juniper,ETX-203,Silver,56.9,9.61,0.037,35.13,0.154,False
+CIR-1090,Central,Ethernet,500,Juniper,7750 SR,Silver,31.58,8.18,0.965,87.55,0.224,False
+CIR-1091,East,FiberLink,500,Nokia,ASR 920,Gold,26.67,3.33,0.421,40.69,0.957,False
+CIR-1092,Central,Ethernet,1000,Nokia,ASR 920,Bronze,52.97,6.3,0.692,33.2,0.573,False
+CIR-1093,Central,Ethernet,100,Nokia,NCS 5508,Gold,60.58,9.84,1.552,66.66,0.933,True
+CIR-1094,East,IP/MPLS,2000,Juniper,5164,Silver,38.84,8.96,1.882,36.2,0.575,False
+CIR-1095,Central,Broadband,1000,Ciena,7750 SR,Bronze,58.4,6.41,0.145,64.87,0.479,True
+CIR-1096,North,IP/MPLS,1000,Juniper,5164,Bronze,85.43,9.13,1.068,62.93,0.314,True
+CIR-1097,West,IP/MPLS,2000,Ciena,7750 SR,Gold,57.32,9.9,1.765,58.53,0.606,False
+CIR-1098,West,IP/MPLS,500,Ciena,NCS 5508,Silver,71.27,7.69,0.165,41.14,0.139,False
+CIR-1099,East,IP/MPLS,1000,Nokia,NCS 5508,Gold,78.45,1.58,1.649,57.11,0.898,True
+CIR-1100,South,FiberLink,500,RAD,ASR 920,Bronze,94.04,4.61,0.716,61.67,0.829,True
+CIR-1101,East,Broadband,100,Cisco,5164,Gold,61.27,8.54,0.644,56.84,0.318,True
+CIR-1102,South,Ethernet,500,Nokia,ASR 920,Gold,78.58,3.08,1.955,47.22,0.953,False
+CIR-1103,West,Ethernet,100,Nokia,5164,Silver,91.83,8.48,0.402,6.39,0.825,True
+CIR-1104,East,Broadband,500,RAD,ASR 920,Silver,90.27,2.08,1.386,60.77,0.666,False
+CIR-1105,North,Ethernet,1000,Cisco,ETX-203,Bronze,21.99,1.42,1.643,21.0,0.122,False
+CIR-1106,Central,Broadband,1000,Juniper,ETX-203,Gold,44.54,4.46,0.082,66.04,0.478,False
+CIR-1107,South,Ethernet,100,Juniper,ETX-203,Gold,37.54,1.33,1.341,77.14,0.506,True
+CIR-1108,Central,IP/MPLS,2000,Nokia,ETX-203,Gold,17.39,9.62,1.903,52.54,0.233,False
+CIR-1109,Central,Ethernet,100,Cisco,7750 SR,Bronze,63.83,8.44,0.248,56.52,0.08,False
+CIR-1110,East,Broadband,100,Nokia,ETX-203,Bronze,72.55,8.21,1.792,95.39,0.777,False
+CIR-1111,Central,Broadband,500,Ciena,NCS 5508,Silver,82.09,6.67,1.19,85.48,0.122,False
+CIR-1112,North,Broadband,500,Nokia,NCS 5508,Silver,20.44,2.95,1.233,91.85,0.594,False
+CIR-1113,Central,Broadband,100,Nokia,7750 SR,Silver,84.5,5.66,1.226,82.31,0.936,True
+CIR-1114,East,Broadband,1000,Juniper,ETX-203,Gold,64.65,6.38,0.598,15.35,0.876,False
+CIR-1115,North,FiberLink,500,Juniper,ETX-203,Gold,69.84,5.73,1.87,19.15,0.278,False
+CIR-1116,West,FiberLink,2000,Juniper,ETX-203,Silver,87.4,3.34,1.895,55.03,0.851,True
+CIR-1117,Central,Ethernet,500,Ciena,ASR 920,Gold,63.1,5.64,1.251,28.38,0.0,False
+CIR-1118,East,Broadband,500,Juniper,5164,Silver,38.55,5.42,1.567,50.29,0.018,True
+CIR-1119,West,Ethernet,2000,Cisco,ASR 920,Bronze,80.13,9.97,1.225,42.46,0.603,False
+CIR-1120,West,Broadband,100,RAD,5164,Silver,40.86,9.08,0.969,57.19,0.365,True
+CIR-1121,South,Broadband,2000,Cisco,ETX-203,Bronze,12.91,5.17,1.322,75.95,0.386,True
+CIR-1122,North,FiberLink,100,Cisco,ETX-203,Gold,80.61,6.61,1.106,72.97,0.564,False
+CIR-1123,Central,FiberLink,100,Juniper,ASR 920,Silver,39.34,7.73,1.195,54.52,0.192,False
+CIR-1124,East,IP/MPLS,100,RAD,ASR 920,Gold,75.78,1.31,1.568,83.13,0.212,False
+CIR-1125,South,FiberLink,2000,RAD,5164,Bronze,40.83,9.05,0.962,45.93,0.485,True
+CIR-1126,North,IP/MPLS,100,RAD,NCS 5508,Bronze,83.19,8.74,0.082,90.19,0.754,True
+CIR-1127,South,IP/MPLS,1000,Ciena,5164,Bronze,28.66,5.12,0.328,11.77,0.619,True
+CIR-1128,North,IP/MPLS,2000,Juniper,ASR 920,Gold,92.84,4.52,0.877,95.69,0.297,False
+CIR-1129,North,IP/MPLS,1000,RAD,ASR 920,Gold,76.28,3.46,1.45,67.2,0.43,True
+CIR-1130,Central,IP/MPLS,100,Ciena,7750 SR,Gold,19.71,5.29,1.187,41.11,0.171,True
+CIR-1131,North,Ethernet,500,Nokia,ASR 920,Gold,58.09,1.4,1.301,23.73,0.075,False
+CIR-1132,South,FiberLink,100,Nokia,7750 SR,Bronze,93.76,8.67,0.959,50.52,0.783,True
+CIR-1133,North,IP/MPLS,1000,Ciena,NCS 5508,Bronze,50.04,1.32,1.231,23.48,0.265,True
+CIR-1134,Central,Broadband,1000,Ciena,5164,Silver,25.48,3.96,0.658,20.8,0.178,False
+CIR-1135,Central,FiberLink,2000,Juniper,5164,Silver,51.21,9.38,0.94,63.65,0.692,True
+CIR-1136,South,FiberLink,500,Juniper,7750 SR,Gold,53.56,7.62,1.489,54.69,0.618,False
+CIR-1137,West,IP/MPLS,2000,Nokia,5164,Bronze,73.04,3.53,1.744,68.66,0.633,False
+CIR-1138,West,Ethernet,1000,RAD,ASR 920,Bronze,69.4,3.27,0.867,93.31,0.229,False
+CIR-1139,North,IP/MPLS,100,Nokia,ETX-203,Bronze,44.22,1.05,0.087,55.56,0.233,False
+CIR-1140,East,Ethernet,500,RAD,7750 SR,Silver,28.53,7.26,0.323,60.19,0.221,False
+CIR-1141,North,Broadband,100,RAD,5164,Silver,64.83,1.44,0.042,13.51,0.174,True
+CIR-1142,South,FiberLink,100,Juniper,7750 SR,Bronze,45.84,5.79,1.307,73.18,0.656,True
+CIR-1143,South,Broadband,500,Cisco,7750 SR,Bronze,21.24,9.66,0.665,42.99,0.848,False
+CIR-1144,South,Ethernet,2000,Cisco,ETX-203,Bronze,86.55,1.99,1.085,97.79,0.724,False
+CIR-1145,South,Ethernet,100,Ciena,ASR 920,Silver,68.75,9.05,0.987,83.2,0.792,True
+CIR-1146,South,Broadband,1000,Juniper,7750 SR,Bronze,68.07,9.92,0.163,54.64,0.405,False
+CIR-1147,Central,Ethernet,100,RAD,5164,Bronze,79.92,1.55,0.807,16.71,0.654,False
+CIR-1148,West,Broadband,500,Cisco,NCS 5508,Gold,55.02,8.95,0.441,86.64,0.354,False
+CIR-1149,South,FiberLink,500,RAD,7750 SR,Gold,79.28,5.64,0.837,80.98,0.526,True
+CIR-1150,East,Broadband,500,Cisco,7750 SR,Silver,52.34,9.16,0.407,22.54,0.482,True
+CIR-1151,East,FiberLink,2000,Cisco,ETX-203,Bronze,15.71,6.14,1.681,33.05,0.177,False
+CIR-1152,East,Broadband,100,Cisco,ASR 920,Bronze,44.45,6.96,0.348,80.37,0.387,False
+CIR-1153,East,Ethernet,2000,Juniper,NCS 5508,Gold,52.28,5.89,1.922,22.6,0.964,True
+CIR-1154,Central,Broadband,2000,Nokia,5164,Silver,71.22,8.78,0.832,92.19,0.249,True
+CIR-1155,East,Ethernet,500,RAD,NCS 5508,Gold,19.06,7.61,1.692,45.33,0.134,False
+CIR-1156,South,Broadband,500,Juniper,5164,Gold,21.9,5.69,1.258,13.27,0.419,False
+CIR-1157,North,Broadband,2000,Juniper,ASR 920,Gold,32.41,8.81,1.471,82.5,0.79,True
+CIR-1158,East,IP/MPLS,100,Juniper,5164,Gold,32.65,3.21,1.535,40.48,0.582,True
+CIR-1159,Central,Ethernet,1000,Juniper,ETX-203,Bronze,72.24,2.42,1.01,55.02,0.681,True
+CIR-1160,Central,IP/MPLS,2000,Juniper,ETX-203,Bronze,31.31,2.44,1.087,15.67,0.19,False
+CIR-1161,East,Ethernet,100,Ciena,ETX-203,Gold,63.81,4.01,1.028,5.25,0.619,True
+CIR-1162,North,IP/MPLS,500,RAD,ETX-203,Silver,52.01,3.15,1.176,65.61,0.324,False
+CIR-1163,East,FiberLink,500,Juniper,NCS 5508,Silver,58.73,9.37,0.059,53.94,0.834,True
+CIR-1164,Central,Broadband,100,RAD,ASR 920,Silver,81.24,1.95,0.791,61.39,0.629,True
+CIR-1165,West,Ethernet,1000,Ciena,5164,Silver,44.37,7.29,1.212,80.41,0.199,True
+CIR-1166,South,Ethernet,500,Ciena,5164,Gold,75.53,2.7,1.195,66.43,0.065,True
+CIR-1167,Central,Broadband,500,RAD,ETX-203,Bronze,45.87,8.93,1.586,21.6,0.043,False
+CIR-1168,East,Ethernet,500,Cisco,ETX-203,Silver,40.08,9.65,1.31,39.27,0.371,False
+CIR-1169,South,Ethernet,100,Nokia,7750 SR,Gold,91.48,5.19,1.984,91.06,0.266,True
+CIR-1170,East,IP/MPLS,2000,Cisco,ASR 920,Silver,25.67,8.91,0.568,78.14,0.646,False
+CIR-1171,East,Ethernet,500,Cisco,NCS 5508,Silver,17.68,1.05,0.718,57.88,0.499,True
+CIR-1172,West,FiberLink,2000,Cisco,5164,Gold,75.53,8.38,0.768,29.29,0.266,True
+CIR-1173,South,FiberLink,1000,Juniper,7750 SR,Bronze,15.8,3.06,0.932,33.7,0.149,True
+CIR-1174,South,Broadband,500,Ciena,7750 SR,Bronze,81.15,9.18,1.672,74.54,0.127,True
+CIR-1175,West,Ethernet,500,Cisco,5164,Gold,47.16,1.01,0.472,85.86,0.865,False
+CIR-1176,Central,Broadband,1000,Ciena,NCS 5508,Bronze,87.82,6.01,1.552,68.79,0.243,True
+CIR-1177,East,FiberLink,500,RAD,7750 SR,Gold,71.33,7.81,0.811,81.91,0.652,True
+CIR-1178,North,Ethernet,2000,Nokia,7750 SR,Gold,61.88,3.33,1.204,77.83,0.811,False
+CIR-1179,East,Ethernet,100,RAD,ASR 920,Gold,90.69,2.74,1.265,19.22,0.614,True
+CIR-1180,East,Broadband,2000,RAD,NCS 5508,Bronze,43.72,1.76,0.746,45.27,0.86,True
+CIR-1181,Central,FiberLink,100,Juniper,7750 SR,Gold,91.1,3.94,1.025,19.53,0.392,True
+CIR-1182,East,Ethernet,100,Nokia,NCS 5508,Silver,21.48,6.04,0.826,27.35,0.956,False
+CIR-1183,West,Broadband,2000,RAD,5164,Bronze,51.12,2.04,0.138,87.58,0.133,True
+CIR-1184,West,FiberLink,2000,RAD,ETX-203,Bronze,32.94,4.39,0.874,49.92,0.102,False
+CIR-1185,South,Broadband,2000,Nokia,7750 SR,Bronze,55.89,1.08,0.195,55.86,0.659,True
+CIR-1186,North,IP/MPLS,2000,Nokia,ASR 920,Bronze,23.77,8.37,0.81,21.95,0.943,True
+CIR-1187,East,Ethernet,1000,RAD,5164,Silver,81.53,2.16,1.186,34.67,0.809,False
+CIR-1188,East,IP/MPLS,500,Nokia,NCS 5508,Bronze,81.94,3.55,1.159,26.87,0.076,True
+CIR-1189,Central,FiberLink,100,RAD,5164,Bronze,91.2,1.17,1.325,24.59,0.279,True
+CIR-1190,West,IP/MPLS,2000,RAD,7750 SR,Gold,23.15,4.89,0.191,65.61,0.93,False
+CIR-1191,North,IP/MPLS,2000,Juniper,NCS 5508,Bronze,62.98,8.56,1.304,29.4,0.253,False
+CIR-1192,South,FiberLink,2000,Cisco,ETX-203,Silver,50.31,4.53,0.624,65.04,0.781,False
+CIR-1193,West,Broadband,1000,RAD,5164,Silver,39.27,2.62,0.798,10.55,0.825,False
+CIR-1194,South,IP/MPLS,2000,Ciena,7750 SR,Silver,39.88,7.78,1.716,18.47,0.495,False
+CIR-1195,Central,Broadband,2000,Cisco,ASR 920,Silver,45.09,8.1,0.018,31.08,0.386,True
+CIR-1196,Central,IP/MPLS,2000,Cisco,NCS 5508,Bronze,69.92,2.56,1.177,61.72,0.45,False
+CIR-1197,East,Broadband,500,Cisco,5164,Bronze,60.85,7.94,1.197,69.2,0.227,True
+CIR-1198,North,FiberLink,1000,Juniper,5164,Silver,49.07,9.53,0.793,47.06,0.889,True
+CIR-1199,South,IP/MPLS,2000,RAD,ETX-203,Silver,16.45,2.5,0.474,47.35,0.451,True
