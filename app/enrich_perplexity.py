@@ -1,47 +1,24 @@
-# enrich_perplexity.py — optional lookup helper
-# If Perplexity API is not configured, this will safely return None.
-
-import os
+# app/enrich_perplexity.py
 import requests
 
-def get_context_hint(vendor: str = None, model: str = None,
-                     bandwidth: float = None, region: str = None) -> str:
-    """
-    Optional context enrichment via Perplexity AI API.
-    Returns a single-line hint string, or None if not configured.
-    """
-    api_key = os.getenv("PERPLEXITY_API_KEY")
-    if not api_key:
+def get_context_hint(vendor, model, bandwidth_mbps, region):
+    """Fetch short external hint using Perplexity API."""
+    key = "YOUR_PERPLEXITY_API_KEY"
+    if not key:
         return None
-
-    query_parts = []
-    if vendor: query_parts.append(vendor)
-    if model: query_parts.append(model)
-    if bandwidth: query_parts.append(f"{bandwidth} Mbps")
-    if region: query_parts.append(region)
-    query = " ".join(query_parts) + " telecom network reliability tips"
-
-    try:
-        resp = requests.post(
-            "https://api.perplexity.ai/chat/completions",
-            headers={
-                "Authorization": f"Bearer {api_key}",
-                "Content-Type": "application/json"
-            },
-            json={
-                "model": "sonar-small-chat",
-                "messages": [
-                    {"role": "system", "content": "Return one concise context hint."},
-                    {"role": "user", "content": query}
-                ],
-                "max_tokens": 60
-            },
-            timeout=30
-        )
-        if resp.status_code == 200:
-            text = resp.json()["choices"][0]["message"]["content"]
-            return text.strip().split("\n")[0][:200]
-    except Exception:
-        pass
-
+    q = f"telecom optimization {vendor} {model} {bandwidth_mbps} Mbps region {region}"
+    url = "https://api.perplexity.ai/chat/completions"
+    headers = {
+        "Authorization": f"Bearer {key}",
+        "Content-Type": "application/json"
+    }
+    data = {
+        "model": "sonar-medium-online",
+        "messages": [{"role": "user", "content": q}],
+        "max_tokens": 120
+    }
+    r = requests.post(url, headers=headers, json=data, timeout=30)
+    if r.status_code == 200:
+        text = r.json()["choices"][0]["message"]["content"]
+        return text.strip()
     return None
