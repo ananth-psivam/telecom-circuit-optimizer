@@ -18,7 +18,7 @@ import numpy as np
 # --- Local modules (no "app." prefix) ---
 from data_access import get_circuits, get_kpis, save_recommendation
 from scoring import compute_risk_score
-from ai_claude import generate_recommendation
+from ai_openai import generate_recommendation
 
 # Optional helpers — import safely if available
 try:
@@ -116,12 +116,11 @@ with st.expander("📋 Data schema diagnostics"):
 # ---------- END: defensive schema normalization ----------
 
 # ----------------------- Diagnostics (keys) -----------------------
-with st.expander("🔧 Diagnostics (Claude key visibility)"):
-    import os as _os
-    import streamlit as _st
-    st.write("os.getenv('CLAUDE_API_KEY') present:", bool(_os.getenv("CLAUDE_API_KEY")))
-    st.write("'CLAUDE_API_KEY' in st.secrets:", "CLAUDE_API_KEY" in _st.secrets)
-    st.write("CLAUDE_MODEL:", _st.secrets.get("CLAUDE_MODEL", "(missing)"))
+with st.expander("🔧 Diagnostics (OpenAI key visibility)"):
+    import os as _os, streamlit as _st
+    st.write("os.getenv('OPENAI_API_KEY') present:", bool(_os.getenv("OPENAI_API_KEY")))
+    st.write("'OPENAI_API_KEY' in st.secrets:", "OPENAI_API_KEY" in _st.secrets)
+    st.write("OPENAI_MODEL:", _st.secrets.get("OPENAI_MODEL", "(missing)"))
 
 # ----------------------- Global filters -----------------------
 colA, colB, colC = st.columns(3)
