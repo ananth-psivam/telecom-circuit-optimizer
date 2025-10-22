@@ -1,5 +1,5 @@
 # --- robust import setup (works on Streamlit Cloud & local) ---
-import os, sys, io
+import os, sys
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 if CURRENT_DIR not in sys.path:
     sys.path.insert(0, CURRENT_DIR)
@@ -42,12 +42,14 @@ except Exception:
                f"**Summary:** {reco.get('summary','')}\n\n" \
                f"**Actions:**\n" + "\n".join(f"- {a}" for a in (reco.get('actions') or []))
 
-# Load env vars
+# Load env vars from .env (for local dev)
 load_dotenv()
 
 st.set_page_config(page_title="Telecom Circuit Optimizer", page_icon="📡", layout="wide")
+st.title("📡 Telecom Circuit Optimization & Predictive Restoration")
+st.caption("Portfolio insights • predictive flags • AI recommendations (OpenAI)")
 
-# --- make sure OPENAI_API_KEY is available everywhere ---
+# --- ensure OPENAI_* are available via os.environ for all modules ---
 try:
     if "OPENAI_API_KEY" in st.secrets and not os.getenv("OPENAI_API_KEY"):
         os.environ["OPENAI_API_KEY"] = str(st.secrets["OPENAI_API_KEY"])
@@ -56,8 +58,23 @@ try:
 except Exception:
     pass
 
-st.title("📡 Telecom Circuit Optimization & Predictive Restoration")
-st.caption("Portfolio insights • predictive flags • AI recommendations (OpenAI)")
+# ---------- small helper to normalize AI result ----------
+def _normalize_reco(r):
+    """Ensure the recommendation object is always a dict with expected keys."""
+    if r is None or not isinstance(r, dict):
+        return {
+            "summary": "AI returned no data.",
+            "reasons": [],
+            "actions": [],
+            "confidence": "low",
+            "raw_text": str(r),
+        }
+    r.setdefault("summary", "")
+    r.setdefault("reasons", [])
+    r.setdefault("actions", [])
+    r.setdefault("confidence", "low")
+    r.setdefault("raw_text", "")
+    return r
 
 # ----------------------- Load data -----------------------
 @st.cache_data
@@ -126,11 +143,28 @@ with st.expander("📋 Data schema diagnostics"):
 # ---------- END: defensive schema normalization ----------
 
 # ----------------------- Diagnostics (keys) -----------------------
-with st.expander("🔧 Diagnostics (OpenAI key visibility)"):
+with st.expander("🔧 Diagnostics (OpenAI visibility)"):
     import os as _os, streamlit as _st
     st.write("os.getenv('OPENAI_API_KEY') present:", bool(_os.getenv("OPENAI_API_KEY")))
     st.write("'OPENAI_API_KEY' in st.secrets:", "OPENAI_API_KEY" in _st.secrets)
-    st.write("OPENAI_MODEL:", _st.secrets.get("OPENAI_MODEL", "(missing)"))
+    st.write("OPENAI_MODEL:", _st.secrets.get("OPENAI_MODEL", _os.getenv("OPENAI_MODEL", "(missing)")))
+
+with st.expander("🧪 OpenAI connectivity test"):
+    if st.button("Run test call", key="btn_openai_test"):
+        dummy = {
+            "circuit_id": "TEST-1",
+            "utilization_pct": 65, "jitter_ms": 6, "pkt_loss_pct": 0.2,
+            "latency_ms": 22, "crc_err_rate": 0.0, "bandwidth_mbps": 1000, "region": "Test"
+        }
+        raw = generate_recommendation(dummy)
+        reco = _normalize_reco(raw)
+        st.write("Summary:", reco.get("summary"))
+        st.write("Confidence:", reco.get("confidence"))
+        if reco.get("actions") or reco.get("reasons"):
+            st.success("Model path returned data.")
+        else:
+            st.info("Heuristic or empty response.")
+        st.code(reco.get("raw_text",""), language="json")
 
 # ----------------------- Global filters -----------------------
 colA, colB, colC = st.columns(3)
@@ -231,7 +265,8 @@ with tab_objs[0]:
             with st.expander(f"🧮 {st_exp}"):
                 st.write(f"Opportunity: **{row.get('opportunity','')}** | Risk: **{round(row.get('Risk Score',0),1)}**")
                 if st.button("AI: Recommend optimization plan", key=f"opt_ai_{row.get('circuit_id')}"):
-                    reco = generate_recommendation(row.to_dict())
+                    raw = generate_recommendation(row.to_dict())
+                    reco = _normalize_reco(raw)
                     if (reco.get("actions") or reco.get("reasons")):
                         st.success("Recommendation ready")
                         st.write(f"**Summary:** {reco.get('summary','')}")
@@ -284,7 +319,8 @@ with tab_objs[1]:
                              f"jitter: {round(row.get('jitter_slope',0),2)}, "
                              f"loss: {round(row.get('loss_slope',0),3)}")
                     if st.button("AI: Preventive action plan", key=f"pred_ai_{row.get('circuit_id')}"):
-                        reco = generate_recommendation(row.to_dict())
+                        raw = generate_recommendation(row.to_dict())
+                        reco = _normalize_reco(raw)
                         if (reco.get("actions") or reco.get("reasons")):
                             st.success("Recommendation ready")
                             st.write(f"**Summary:** {reco.get('summary','')}")
@@ -329,7 +365,8 @@ with tab_objs[2]:
                 c5.metric("CRC errs", f"{sel.get('crc_err_rate',0)}")
                 c6.metric("Risk", f"{round(sel.get('Risk Score',0),1)}")
 
-                reco = generate_recommendation(sel)
+                raw = generate_recommendation(sel)
+                reco = _normalize_reco(raw)
                 actions = reco.get("actions") or []
                 reasons = reco.get("reasons") or []
 
@@ -417,7 +454,8 @@ with tab_objs[tab_index]:
     pick = st.selectbox("Select a circuit", sel_choices, key="ticket_pick")
     if pick and st.button("Generate Ticket Draft", key="ticket_btn"):
         row = fdf.loc[fdf["circuit_id"] == pick].iloc[0].to_dict()
-        reco = generate_recommendation(row)
+        raw = generate_recommendation(row)
+        reco = _normalize_reco(raw)
         md = build_servicenow_markdown(row, reco)
         st.markdown(md)
         st.download_button("Download as .md", md.encode("utf-8"), file_name=f"{pick}_ticket_draft.md", mime="text/markdown")
