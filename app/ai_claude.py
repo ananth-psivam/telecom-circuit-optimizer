@@ -41,7 +41,7 @@ def _fallback_extract_lists(text: str):
     return reasons[:3], actions[:3]
 
 def generate_recommendation(circuit: Dict[str, Any], max_tokens: int = 400) -> Dict[str, Any]:
-    CLAUDE_API_KEY = _get_env("CLAUDE_API_KEY")
+    CLAUDE_API_KEY = _get_env("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")
     CLAUDE_MODEL   = _get_env("CLAUDE_MODEL", "claude-3-haiku-20240307")
     if not CLAUDE_API_KEY:
         return {"summary":"Claude API key not configured.","reasons":[],"actions":[],"confidence":"low","raw_text":"Set CLAUDE_API_KEY"}
